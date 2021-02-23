@@ -1,0 +1,10 @@
+{
+  "uuid": "%uuid%",
+  "name": "CommandLineAddon",
+  "mainClass": "de.kyleonaut.commandline.CommandLine",
+  "description": "CommandLineAddon für das VVV Casino. (c)kyleonaut 2021",
+  "version": 1,
+  "author": "kyleonaut",
+  "category": 1
+}
+
