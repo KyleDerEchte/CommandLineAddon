@@ -18,25 +18,16 @@ public class StartStopManager {
 
 
     public static void startAddon(){
-        if (isEnabled()){
-            MessageUtils.displayInternalMessage(InternalMessages.addonAllreadyEnabled);
-            return;
-        }
-        setIsEnabled(true);
         MessageUtils.displayInternalMessage(InternalMessages.addonWasEnabled);
-
+        setIsEnabled(true);
         communicatorId = Scheduler.scheduleRepeatingTask(new ChatCommunicationManager(),3000,0);
+
     }
 
     public static void stopAddon(){
-        if (!isEnabled()){
-            MessageUtils.displayInternalMessage(InternalMessages.addonIsNotOnline);
-            return;
-        }
-
-        setIsEnabled(false);
-
         Scheduler.killTask(communicatorId);
+        setIsEnabled(false);
         MessageUtils.displayInternalMessage(InternalMessages.addonWasDisabled);
     }
+
 }

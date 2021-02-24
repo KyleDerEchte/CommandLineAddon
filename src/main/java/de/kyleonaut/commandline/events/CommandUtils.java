@@ -2,20 +2,23 @@ package de.kyleonaut.commandline.events;
 
 import de.kyleonaut.commandline.CommandLine;
 import de.kyleonaut.commandline.StartStopManager;
-import de.kyleonaut.commandline.messages.InternalMessages;
 import de.kyleonaut.commandline.messages.MessageUtils;
 
 public class CommandUtils {
 
     public static boolean isValidCommand(String s1) {
         if (StartStopManager.isEnabled()) {
+            if(!(s1.contains("[") && s1.contains("->") && s1.contains("]"))){
+                return false;
+            }
+
             if (!CommandLine.getWhitelistedUsers().contains(getCommandSender(s1))) {
-                MessageUtils.displayInternalMessage(InternalMessages.userNotWhitelisted);
                 return false;
             }
 
             if (CommandLine.getDeniedCommands().contains(getCommand(s1))) {
-                MessageUtils.displayInternalMessage(InternalMessages.commandIsBlacklisted);
+                MessageUtils.displayInternalMessage("§7[§6Command§3Line§7]§c "+getCommandSender(s1)+" hat" +
+                        " versucht den Befehl: /"+getCommand(s1)+" auszuführen");
                 return false;
             }
 
@@ -37,7 +40,7 @@ public class CommandUtils {
 
     public static String getCommand(String s1) {
         try {
-            return s1.split("]")[1];
+            return s1.split("] ")[1];
         }catch (Throwable e){
             return null;
         }
