@@ -16,12 +16,22 @@ public class CommandUtils {
                 return false;
             }
 
-            if (CommandLine.getDeniedCommands().contains(getCommand(s1))) {
-                MessageUtils.displayInternalMessage("§7[§6Command§3Line§7]§c "+getCommandSender(s1)+" hat" +
-                        " versucht den Befehl: /"+getCommand(s1)+" auszuführen");
-                return false;
+            for(String cmd : CommandLine.getDeniedCommands()){
+                try {
+                    String formattedcmd = s1.replace(getCommandSender(s1),"");
+                    String Variablecmd = cmd.replace("$player$",getCommandSender(s1));
+                    if (Variablecmd.equals(getCommand(s1))){
+                        MessageUtils.displayInternalMessage("§7[§6Command§3Line§7]§c "+getCommandSender(s1)+" hat" +
+                                " versucht den Befehl: /"+getCommand(s1)+" auszuführen");
+                        return false;
+                    }else if (formattedcmd.equals(cmd)){
+                        MessageUtils.displayInternalMessage("§7[§6Command§3Line§7]§c "+getCommandSender(s1)+" hat" +
+                                " versucht den Befehl: /"+getCommand(s1)+" auszuführen");
+                        return false;
+                    }
+                }catch (Exception ignored){
+                }
             }
-
             return true;
         }
         return false;
